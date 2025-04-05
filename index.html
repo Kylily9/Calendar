@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025 Calendar with Holidays</title>
+    <style>
+      /* Global Styles */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f5f5f5;
+      }
+    
+      #calendar-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 20px;
+      }
+    
+      table {
+        border-collapse: collapse;
+        margin: 20px;
+        background-color: white;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+      }
+    
+      th, td {
+        padding: 10px;
+        text-align: center;
+        width: 40px;
+      }
+    
+      th {
+        background-color: #4CAF50;
+        color: white;
+        font-size: 1.2em;
+        text-transform: uppercase;
+      }
+    
+      td {
+        font-size: 1em;
+        color: #333;
+        background-color: #f9f9f9;
+      }
+    
+      td.sunday {
+        color: #e74c3c;
+      }
+    
+      td:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+    
+      td:hover {
+        background-color: #ddd;
+        cursor: pointer;
+      }
+    
+      td.empty {
+        background-color: transparent;
+      }
+    
+      tr:last-child td {
+        border-bottom: none;
+      }
+    
+      /* Month Header */
+      .month-header {
+        font-size: 1.5em;
+        font-weight: bold;
+        padding: 10px;
+        background-color: #2c3e50;
+        color: white;
+        text-align: center;
+        border-radius: 8px 8px 0 0;
+      }
+    
+      /* Responsive Styles */
+      @media (max-width: 768px) {
+        table {
+          width: 90%;
+        }
+    
+        th, td {
+          font-size: 0.9em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="calendar-container"></div>
+
+    <script>
+      const months = [
+        { name: "January", days: 31, startDay: 3 },
+        { name: "February", days: 28, startDay: 6 },
+        { name: "March", days: 31, startDay: 6 },
+        { name: "April", days: 30, startDay: 2 },
+        { name: "May", days: 31, startDay: 5 },
+        { name: "June", days: 30, startDay: 1 },
+        { name: "July", days: 31, startDay: 3 },
+        { name: "August", days: 31, startDay: 6 },
+        { name: "September", days: 30, startDay: 1 },
+        { name: "October", days: 31, startDay: 3 },
+        { name: "November", days: 30, startDay: 5 },
+        { name: "December", days: 31, startDay: 1 }
+      ];
+
+      function generateCalendar(month) {
+        let table = `<table>
+                      <tr><th colspan="7" class="month-header">${month.name} 2025</th></tr>
+                      <tr>
+                        <td class="sunday">SUN</td>
+                        <td>MON</td>
+                        <td>TUE</td>
+                        <td>WED</td>
+                        <td>THU</td>
+                        <td>FRI</td>
+                        <td>SAT</td>
+                      </tr>`;
+
+        let day = 1;
+        let startDay = month.startDay;
+        for (let i = 0; i < 6; i++) {
+          table += "<tr>";
+
+          for (let j = 0; j < 7; j++) {
+            if (i === 0 && j < startDay) {
+              table += "<td class='empty'></td>";
+            } else if (day <= month.days) {
+              table += `<td>${day}</td>`;
+              day++;
+            } else {
+              table += "<td class='empty'></td>";
+            }
+          }
+
+          table += "</tr>";
+
+          if (day > month.days) break;
+        }
+
+        table += "</table>";
+        return table;
+      }
+
+      const calendarContainer = document.getElementById('calendar-container');
+      months.forEach(month => {
+        const calendar = generateCalendar(month);
+        calendarContainer.innerHTML += calendar;
+      });
+    </script>
+  </body>
+</html>
+
+  
